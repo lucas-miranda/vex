@@ -1,0 +1,3 @@
+[submodule "midnight"]
+	path = midnight
+	url = https://github.com/lucas-miranda/midnight.git
