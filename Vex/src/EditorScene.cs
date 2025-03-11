@@ -1,17 +1,15 @@
-using System;
-
-namespace Vex;
-
 using Midnight;
 using Midnight.GUI;
 
+namespace Vex;
+
 public class EditorScene : Scene {
-    private GUIDisplayer _gui;
-    private float _time;
+    //private GUIDisplayer _gui;
+    //private float _time;
     //private bool _triggered;
 
-    private Font f;
-    private bool anim;
+    //private Font f;
+    //private bool anim;
     //private TextDisplayer text;
 
     public override void Prepare() {
@@ -95,20 +93,6 @@ public class EditorScene : Scene {
          *
          */
 
-        Font<MTSDF> font = MTSDF.LoadFont(
-            Texture2D.Load(@"font-atlas.png"),
-            @"font-atlas-data.json"
-        );
-
-        f = font;
-
-        if (font is Font<MTSDF> mtsdf) {
-            //System.Console.WriteLine("Data: " + mtsdf.Typesetting.Data);
-        }
-
-        //font.Build("The quick brown fox jumps over the lazy dog", new() { TabWhitespaceSize = 2 });
-        //font.Build("नमस्ते");
-
         /*
         text = new() {
             Font = font,
@@ -132,27 +116,22 @@ public class EditorScene : Scene {
         */
 
         /*
-        Entity e = Entities.Create();
-        e.Components.Create<Transform2D>();
-        e.Components.Add(text);
-        */
-
-
         Entities.Create()
                 .With<GUIDisplayer>(out GUIDisplayer guiDisplayer)
                 .Submit();
+        */
 
-        guiDisplayer.Design.Builder.Build(Build);
+        //guiDisplayer.Design.Builder.Build(Build);
 
-        //_gui = new();
-        //_gui.Design.Builder.Build(Build);
+        Design design = new();
+        design.Builder.Build(Build);
 
-        RenderingServer.MainCamera.Position = new(RenderingServer.MainCamera.Size.ToVector2() / 2.0f);
+        //RenderingServer.MainCamera.Position = new(RenderingServer.MainCamera.Size.ToVector2() / 2.0f);
     }
 
     public override void Start() {
         base.Start();
-        Program.Debug.Visible = false;
+        //Program.Debug.Visible = false;
     }
 
     public override void Update(DeltaTime dt) {
@@ -176,6 +155,7 @@ public class EditorScene : Scene {
         }
         */
 
+        /*
         if (anim) {
             _time += dt.Sec;
 
@@ -183,6 +163,7 @@ public class EditorScene : Scene {
             f.Size = Math.Max(midpoint + midpoint * Math.Sin(120 * _time), 16);
             //System.Console.WriteLine($"Font size: {f.Size}");
         }
+        */
     }
 
     public override void Render(DeltaTime dt) {
@@ -210,9 +191,9 @@ public class EditorScene : Scene {
 
     private void Build(DesignBuilder b) {
         using (var f = b.Frame()) {
-            if (f.Button("Ok")) {
+            if (f.PushButton("Ok")) {
                 ButtonOkPressed();
-            } else if (f.Button("Cancel")) {
+            } else if (f.PushButton("Cancel")) {
                 ButtonCancelPressed();
             } else {
                 Logger.Line("Editor: Nothing pressed");
