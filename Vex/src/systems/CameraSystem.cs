@@ -27,7 +27,7 @@ public class CameraSystem : EntitySystem {
                         break;
                     case ButtonState.Down:
                         if (_panning) {
-                            RenderingServer.MainCamera.Position += new Vector3(ev.Movement.ToFloat(), 0.0f) * _panningStrength;
+                            RenderingServer.MainCamera.Position -= new Vector3(ev.Movement.ToFloat(), 0.0f) * _panningStrength;
                         }
                         break;
                     case ButtonState.JustReleased:
